@@ -91,7 +91,7 @@ def chat_interface():
             
             try:
                 # Send POST request with streaming response
-                response = requests.post(API_URL, json=data, stream=True)
+                response = requests.post(API_URL, json=data, stream=True, headers={'Content-Type': 'application/json; charset=utf-8'})
                 
                 # Stream the response in smaller chunks for smoother streaming
                 for chunk in response.iter_content(chunk_size=64):  # Smaller chunks for more frequent updates
@@ -118,6 +118,6 @@ def chat_interface():
 if __name__ == "__main__":
     # Set the page configuration (optional)
     st.set_page_config(page_title="Chat Interface", layout="wide")
-    
+    st.markdown('<meta charset="UTF-8">', unsafe_allow_html=True)
     # Call the chat interface function
     chat_interface()
