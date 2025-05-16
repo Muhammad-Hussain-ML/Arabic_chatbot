@@ -60,11 +60,27 @@ def chat_interface():
     # Display previous chat messages
     for msg in st.session_state["messages"]:
         with st.chat_message(msg["role"]):
-            st.markdown(msg["content"])
+            if st.session_state["language"] == "Arabic":
+                # Add RTL direction for Arabic messages
+                html_content = f'<div dir="rtl" style="text-align: right;">{msg["content"]}</div>'
+                st.markdown(html_content, unsafe_allow_html=True)
+            else:
+                st.markdown(msg["content"])
     
     # Change placeholder text based on language
     placeholder_text = "أدخل سؤالك هنا..." if st.session_state["language"] == "Arabic" else "Ask a query..."
     
+    # Add RTL support for Arabic
+    if st.session_state["language"] == "Arabic":
+        st.markdown("""
+        <style>
+        .element-container, .stTextInput, .stButton, .css-1p0bytv {
+            direction: rtl;
+            text-align: right;
+        }
+        </style>
+        """, unsafe_allow_html=True)
+        
     # Chat input field for user query
     if query := st.chat_input(placeholder_text):
         # Append user message to chat history
@@ -75,7 +91,11 @@ def chat_interface():
         
         # Display the user's message
         with st.chat_message("user"):
-            st.markdown(query)
+            if st.session_state["language"] == "Arabic":
+                html_content = f'<div dir="rtl" style="text-align: right;">{query}</div>'
+                st.markdown(html_content, unsafe_allow_html=True)
+            else:
+                st.markdown(query)
         
         # Prepare data for the API request, including the full history
         data = {
@@ -90,20 +110,25 @@ def chat_interface():
             response_text = ""
             
             try:
-                # Send POST request with streaming response
-                response = requests.post(API_URL, json=data, stream=True, headers={'Content-Type': 'application/json; charset=utf-8'})
+                # Send POST request with streaming response with additional headers
+                headers = {
+                    'Content-Type': 'application/json; charset=utf-8',
+                    'Accept': 'text/plain; charset=utf-8',
+                    'Accept-Encoding': 'identity'
+                }
+                response = requests.post(API_URL, json=data, stream=True, headers=headers)
                 
-                # Stream the response in smaller chunks for smoother streaming
-                for chunk in response.iter_content(chunk_size=64):  # Smaller chunks for more frequent updates
+                # Use the same approach that works in Jupyter notebook
+                for chunk in response.iter_content(chunk_size=64, decode_unicode=True):
                     if chunk:
-                        try:
-                            decoded_chunk = chunk.decode('utf-8')  # Attempt to decode
-                        except UnicodeDecodeError:
-                            decoded_chunk = chunk.decode('utf-8', errors='replace')
+                        response_text += chunk
                         
-                        response_text += decoded_chunk
-                        # Update the display with each chunk to show streaming effect
-                        response_container.markdown(response_text)
+                        # Display with proper RTL formatting for Arabic
+                        if st.session_state["language"] == "Arabic":
+                            html_content = f'<div dir="rtl" style="text-align: right;">{response_text}</div>'
+                            response_container.markdown(html_content, unsafe_allow_html=True)
+                        else:
+                            response_container.markdown(response_text)
                 
                 # Append assistant response to chat history
                 st.session_state["messages"].append({"role": "assistant", "content": response_text})
@@ -118,6 +143,9 @@ def chat_interface():
 if __name__ == "__main__":
     # Set the page configuration (optional)
     st.set_page_config(page_title="Chat Interface", layout="wide")
+    
+    # Add explicit UTF-8 encoding meta tag
     st.markdown('<meta charset="UTF-8">', unsafe_allow_html=True)
+    
     # Call the chat interface function
     chat_interface()
