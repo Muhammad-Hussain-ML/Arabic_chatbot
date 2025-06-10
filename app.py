@@ -31,7 +31,7 @@ def chat_interface():
         # Create the dropdown
         selected_language = st.selectbox(
             "Select Language",
-            options=["English", "Arabic","Abid Hospital", "Pak Health Consultant", "EMRChains", "IICI"],
+            options=["English", "Arabic","Abid Hospital", "Pak Health Consultant", "IICI", "EMRChains"],
             # index=0 if st.session_state["language"] == "English" else 1,
             index=0 if st.session_state["language"] == "English" else (
                 1 if st.session_state["language"] == "Arabic" else (
