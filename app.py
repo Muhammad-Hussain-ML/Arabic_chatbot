@@ -30,11 +30,11 @@ def chat_interface():
         
         # Create the dropdown
         selected_language = st.selectbox(
-            "Select Language",
-            options=["English", "Arabic","Abid Hospital", "Pak Health Consultant", "IICI", "EMRChains"],
+            "Select Hospital",
+            options=["Sidra Medicine English", "Sidra Medicine Arabic","Abid Hospital", "Pak Health Consultant", "IICI", "EMRChains"],
             # index=0 if st.session_state["language"] == "English" else 1,
-            index=0 if st.session_state["language"] == "English" else (
-                1 if st.session_state["language"] == "Arabic" else (
+            index=0 if st.session_state["language"] == "Sidra Medicine English" else (
+                1 if st.session_state["language"] == "Sidra Medicine Arabic" else (
                     2 if st.session_state["language"] == "Abid Hospital" else (
                         3 if st.session_state["language"] == "Pak Health Consultant" else (
                             4 if st.session_state["language"] == "IICI" else (
@@ -55,7 +55,7 @@ def chat_interface():
             st.rerun()  # Refresh the page
     
     # Set the unique_id based on selected language
-    if st.session_state["language"] == "Arabic":
+    if st.session_state["language"] == "Sidra Medicine Arabic":
         unique_id = os.getenv("Unique_ID_Arabic")
     elif st.session_state["language"] == "Abid Hospital":
         unique_id = os.getenv("Unique_ID_Abid_Hospital")
