@@ -31,13 +31,15 @@ def chat_interface():
         # Create the dropdown
         selected_language = st.selectbox(
             "Select Language",
-            options=["English", "Arabic","Abid Hospital", "Pak Health Consultant", "EMRChains"],
+            options=["English", "Arabic","Abid Hospital", "Pak Health Consultant", "EMRChains", "IICI"],
             # index=0 if st.session_state["language"] == "English" else 1,
             index=0 if st.session_state["language"] == "English" else (
                 1 if st.session_state["language"] == "Arabic" else (
                     2 if st.session_state["language"] == "Abid Hospital" else (
                         3 if st.session_state["language"] == "Pak Health Consultant" else (
-                            4 if st.session_state["language"] == "EMRChains" else 0
+                            4 if st.session_state["language"] == "IICI" else (
+                                5 if st.session_state["language"] == "EMRChains" else 0
+                            )
                         )
                     )
                 )
@@ -61,6 +63,8 @@ def chat_interface():
         unique_id = os.getenv("Unique_ID_Pak_Health")
     elif st.session_state["language"] == "EMRChains":
         unique_id = os.getenv("Unique_ID_EMRChains")
+    elif st.session_state["language"] == "IICI":
+        unique_id = os.getenv("Unique_ID_IICI")
     else :
         unique_id = os.getenv("Unique_ID_Eng")
     
