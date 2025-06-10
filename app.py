@@ -1,4 +1,4 @@
-import streamlit as st
+ import streamlit as st
 import requests
 import os
 from dotenv import load_dotenv
@@ -31,8 +31,17 @@ def chat_interface():
         # Create the dropdown
         selected_language = st.selectbox(
             "Select Language",
-            options=["English", "Arabic"],
-            index=0 if st.session_state["language"] == "English" else 1,
+            options=["English", "Arabic","Abid Hospital", "Pak Health Consultant", "EMRChains"],
+            # index=0 if st.session_state["language"] == "English" else 1,
+            index=0 if st.session_state["language"] == "English" else (
+                1 if st.session_state["language"] == "Arabic" else (
+                    2 if st.session_state["language"] == "Abid Hospital" else (
+                        3 if st.session_state["language"] == "Pak Health Consultant" else (
+                            4 if st.session_state["language"] == "EMRChains" else 0
+                        )
+                    )
+                )
+            ),
             key="language_selector"
         )
         
@@ -46,7 +55,13 @@ def chat_interface():
     # Set the unique_id based on selected language
     if st.session_state["language"] == "Arabic":
         unique_id = os.getenv("Unique_ID_Arabic")
-    else:
+    elif st.session_state["language"] == "Abid Hospital":
+        unique_id = os.getenv("Unique_ID_Abid_Hospital")
+    elif st.session_state["language"] == "Pak Health Consultant":
+        unique_id = os.getenv("Unique_ID_Pak_Health")
+    elif st.session_state["language"] == "EMRChains":
+        unique_id = os.getenv("Unique_ID_EMRChains")
+    else :
         unique_id = os.getenv("Unique_ID_Eng")
     
     # Initialize chat history if it doesn't exist
