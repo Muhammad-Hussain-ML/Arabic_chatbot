@@ -67,7 +67,7 @@ def chat_interface():
         unique_id = os.getenv("Unique_ID_IICI")
     else :
         unique_id = os.getenv("Unique_ID_Eng")
-    
+    st.write(unique_id)
     # Initialize chat history if it doesn't exist
     if "messages" not in st.session_state:
         st.session_state["messages"] = []
