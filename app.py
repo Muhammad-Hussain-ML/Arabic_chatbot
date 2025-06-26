@@ -14,8 +14,6 @@ def chat_interface():
     """Testing Chatbot Interface."""
     
     st.markdown("<style>h1 { margin-top: -50px; }</style>", unsafe_allow_html=True)
-    st.write(API_URL)
-
     # Create a layout with columns for the title and dropdown
     col1, col2 = st.columns([3, 1])
     
