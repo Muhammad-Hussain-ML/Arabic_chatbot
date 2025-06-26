@@ -8,7 +8,7 @@ load_dotenv()
 
 # Access the API URL from the .env file
 API_URL = os.getenv("API_URL")
-
+st.write(API_URL)
 # Define the chat interface function
 def chat_interface():
     """Testing Chatbot Interface."""
