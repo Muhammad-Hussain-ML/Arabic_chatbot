@@ -69,7 +69,7 @@ def chat_interface():
     elif st.session_state["language"] == "IICI":
         unique_id = os.getenv("Unique_ID_IICI")    
     elif st.session_state["language"] == "CDC":
-        unique_id = os.getenv("CDC-ISB-2025")
+        unique_id = os.getenv("Unique_ID_CDC")
     elif st.session_state["language"] == "EMRChains_Arabic":
         unique_id = os.getenv("Unique_ID_EMRChains_Arabic")
     else :
