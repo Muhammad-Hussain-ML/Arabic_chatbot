@@ -30,7 +30,7 @@ def chat_interface():
         # Create the dropdown
         selected_language = st.selectbox(
             "Select an Hospital",
-            options=["Sidra Medicine English", "Sidra Medicine Arabic","Abid Hospital", "Pak Health Consultant", "IICI", "EMRChains", "EMRChains_Arabic", "CDC"],
+            options=["Sidra Medicine English", "Sidra Medicine Arabic","Abid Hospital", "Pak Health Consultant", "IICI", "EMRChains", "EMRChains_Arabic", "CDC","CDC URDU"],
             # index=0 if st.session_state["language"] == "English" else 1,
             index=0 if st.session_state["language"] == "Sidra Medicine English" else (
                 1 if st.session_state["language"] == "Sidra Medicine Arabic" else (
@@ -39,7 +39,9 @@ def chat_interface():
                             4 if st.session_state["language"] == "IICI" else (
                                 5 if st.session_state["language"] == "EMRChains" else (
                                     6 if st.session_state["language"] == "EMRChains_Arabic" else (
-                                        7  if st.session_state["language"] == "CDC" else 0
+                                        7  if st.session_state["language"] == "CDC" else (
+                                            8  if st.session_state["language"] == "CDC URDU" else 0
+                                        )
                                     )
                                 )
                             )
@@ -69,7 +71,9 @@ def chat_interface():
     elif st.session_state["language"] == "IICI":
         unique_id = os.getenv("Unique_ID_IICI")    
     elif st.session_state["language"] == "CDC":
-        unique_id = os.getenv("Unique_ID_CDC")
+        unique_id = os.getenv("Unique_ID_CDC") 
+    elif st.session_state["language"] == "CDC URDU":
+        unique_id = os.getenv("Unique_ID_CDC_Roman")
     elif st.session_state["language"] == "EMRChains_Arabic":
         unique_id = os.getenv("Unique_ID_EMRChains_Arabic")
     else :
