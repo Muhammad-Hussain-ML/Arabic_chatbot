@@ -30,7 +30,7 @@ def chat_interface():
         # Create the dropdown
         selected_language = st.selectbox(
             "Select an Hospital",
-            options=["Sidra Medicine English", "Sidra Medicine Arabic","Abid Hospital", "Pak Health Consultant", "IICI", "EMRChains", "EMRChains_Arabic", "CDC","CDC-URDU","Mexol"],
+            options=["Sidra Medicine English", "Sidra Medicine Arabic","Abid Hospital", "Pak Health Consultant", "IICI", "EMRChains", "EMRChains_Arabic", "CDC","CDC-URDU","Medxol"],
             # index=0 if st.session_state["language"] == "English" else 1,
             index=0 if st.session_state["language"] == "Sidra Medicine English" else (
                 1 if st.session_state["language"] == "Sidra Medicine Arabic" else (
